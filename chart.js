@@ -34,8 +34,12 @@ function drawCircle(color, ratio, anticlockwise) {
 function updateChart(income, outcome) {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-  let ratio = income / (outcome + income);
+  const total = income + outcome;
+  const ratio = total > 0 ? income / total : 0;
 
   drawCircle("#FFF", -ratio, true);
   drawCircle("#F0624D", 1 - ratio, false);
 }
+
+// Keep the classic-script browser API available when the file is loaded as a module in tests.
+globalThis.updateChart = updateChart;
